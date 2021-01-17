@@ -73,7 +73,7 @@ const NavigationMenu = (props) => {
           orientation={vertical ? 'vertical' : 'horizontal'}
           variant={vertical ? 'fullWidth' : 'standard'}
         >
-          <Tab label='Home' value='' component={NavLink} to='/' />
+          <Tab label='Home' value='home' component={NavLink} to='/' />
           {/* Auto import links */}
         </Tabs>
       </Grid>
