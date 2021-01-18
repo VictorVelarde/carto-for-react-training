@@ -33,11 +33,11 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0, 3),
   },
   menuButton: {
-    margin: theme.spacing(0, .75, 0, -1.25),
+    margin: theme.spacing(0, 0.75, 0, -1.25),
 
     '& + hr': {
-      marginRight: theme.spacing(1.5)
-    }
+      marginRight: theme.spacing(1.5),
+    },
   },
   drawer: {
     minWidth: 260,
@@ -51,9 +51,9 @@ const useStyles = makeStyles((theme) => ({
         height: `${theme.typography.subtitle1.lineHeight}em`,
         marginRight: theme.spacing(1.5),
         verticalAlign: 'bottom',
-      }
-    }
-  }
+      },
+    },
+  },
 }));
 
 const NavigationMenu = (props) => {
@@ -74,6 +74,13 @@ const NavigationMenu = (props) => {
           variant={vertical ? 'fullWidth' : 'standard'}
         >
           <Tab label='Home' value='home' component={NavLink} to='/' />
+          <Tab
+            label='Dynamic view'
+            value='dynamic'
+            component={NavLink}
+            to='/dynamic'
+            className={classes.navLink}
+          />
           {/* Auto import links */}
         </Tabs>
       </Grid>

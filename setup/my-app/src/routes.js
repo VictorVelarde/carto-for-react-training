@@ -5,6 +5,7 @@ import Main from 'components/views/Main';
 import NotFound from 'components/views/NotFound';
 import Home from 'components/views/Home';
 
+import DynamicView from 'components/views/DynamicView.js';
 // Auto import
 const routes = [
   {
@@ -12,6 +13,8 @@ const routes = [
     element: <Main />,
     children: [
       { path: '/', element: <Navigate to='/home' /> },
+      { path: '/dynamic', element: <DynamicView /> },
+
       // Auto import routes
       { path: '/home', element: <Home /> },
     ],
