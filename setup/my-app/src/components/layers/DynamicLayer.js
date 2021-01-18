@@ -19,6 +19,21 @@ export default function DynamicLayer() {
     }
   };
 
+  const storesByRevenue = (store) => {
+    const r = store.properties.revenue;
+
+    const K = 1000;
+    if (r < 1000 * K) {
+      return [191, 63, 63, 10];
+    } else if (r < 2000 * K) {
+      return [153, 51, 51, 60];
+    } else if (r < 3000 * K) {
+      return [114, 38, 38, 150];
+    } else {
+      return [76, 25, 25, 255];
+    }
+  };
+
   if (dynamicLayer && source) {
     return new CartoSQLLayer({
       id: 'dynamicLayer',
