@@ -1,17 +1,27 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addLayer, removeLayer, addSource, removeSource } from '@carto/react/redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import {
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    padding: theme.spacing(2),
+  },
 }));
 
 export default function DynamicView() {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const [mapType, setMapType] = useState('type');
 
   const SOURCE_ID = `dynamicLayerSource`;
   const LAYER_ID = `dynamicLayer`;
@@ -41,9 +51,26 @@ export default function DynamicView() {
     };
   }, [dispatch, SOURCE_ID, LAYER_ID]);
 
+  const handleChange = (event) => {
+    setMapType(event.target.value);
+  };
+
   return (
     <Grid container direction='row' className={classes.root}>
-      <Grid item>Hello World</Grid>
+      <Grid item xs>
+        <FormControl component='fieldset'>
+          <FormLabel component='legend'>Stores map type</FormLabel>
+          <RadioGroup
+            aria-label='gender'
+            name='gender1'
+            value={mapType}
+            onChange={handleChange}
+          >
+            <FormControlLabel value='type' control={<Radio />} label='By type' />
+            <FormControlLabel value='revenue' control={<Radio />} label='By revenue' />
+          </RadioGroup>
+        </FormControl>
+      </Grid>
     </Grid>
   );
 }
