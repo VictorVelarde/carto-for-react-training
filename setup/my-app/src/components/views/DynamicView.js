@@ -1,7 +1,13 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addLayer, removeLayer, addSource, removeSource } from '@carto/react/redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addLayer,
+  removeLayer,
+  updateLayer,
+  addSource,
+  removeSource,
+} from '@carto/react/redux';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   FormControl,
@@ -19,12 +25,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DynamicView() {
-  const dispatch = useDispatch();
-  const classes = useStyles();
-  const [mapType, setMapType] = useState('type');
-
   const SOURCE_ID = `dynamicLayerSource`;
   const LAYER_ID = `dynamicLayer`;
+
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const dynamicLayer = useSelector((store) => store.carto.layers[LAYER_ID]);
+
+  const BY_TYPE = 'type';
+  const BY_REVENUE = 'revenue';
 
   useEffect(() => {
     // Add the source
@@ -41,6 +50,7 @@ export default function DynamicView() {
       addLayer({
         id: LAYER_ID,
         source: SOURCE_ID,
+        layerAttributes: { styleType: BY_TYPE },
       })
     );
 
@@ -52,24 +62,38 @@ export default function DynamicView() {
   }, [dispatch, SOURCE_ID, LAYER_ID]);
 
   const handleChange = (event) => {
-    setMapType(event.target.value);
+    const mapType = event.target.value;
+    dispatch(
+      updateLayer({
+        id: LAYER_ID,
+        layerAttributes: { styleType: mapType },
+      })
+    );
   };
 
   return (
     <Grid container direction='row' className={classes.root}>
       <Grid item xs>
-        <FormControl component='fieldset'>
-          <FormLabel component='legend'>Stores map type</FormLabel>
-          <RadioGroup
-            aria-label='gender'
-            name='gender1'
-            value={mapType}
-            onChange={handleChange}
-          >
-            <FormControlLabel value='type' control={<Radio />} label='By type' />
-            <FormControlLabel value='revenue' control={<Radio />} label='By revenue' />
-          </RadioGroup>
-        </FormControl>
+        {dynamicLayer ? (
+          <FormControl component='fieldset'>
+            <FormLabel component='legend'>Stores map type</FormLabel>
+            <RadioGroup
+              aria-label='type'
+              name='mapType'
+              value={dynamicLayer.styleType}
+              onChange={handleChange}
+            >
+              <FormControlLabel value={BY_TYPE} control={<Radio />} label='By type' />
+              <FormControlLabel
+                value={BY_REVENUE}
+                control={<Radio />}
+                label='By revenue'
+              />
+            </RadioGroup>
+          </FormControl>
+        ) : (
+          <div>Loading...</div>
+        )}
       </Grid>
     </Grid>
   );

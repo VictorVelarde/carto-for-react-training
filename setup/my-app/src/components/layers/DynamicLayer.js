@@ -35,11 +35,13 @@ export default function DynamicLayer() {
   };
 
   if (dynamicLayer && source) {
+    const dynamicStyle =
+      dynamicLayer.styleType === 'type' ? storesByType : storesByRevenue;
     return new CartoSQLLayer({
       id: 'dynamicLayer',
       data: buildQueryFilters(source),
       credentials: source.credentials,
-      getFillColor: storesByType,
+      getFillColor: dynamicStyle,
       pointRadiusMinPixels: 4,
       pickable: true,
       onHover: (info) => {
