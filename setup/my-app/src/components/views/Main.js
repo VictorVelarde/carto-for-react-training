@@ -184,7 +184,7 @@ export default function Main() {
         <Portal container={isMobile ? mobileContainer.current : desktopContainer.current}>
           <Outlet />
         </Portal>
-        <Hidden xsDown>
+        <Hidden xsDown implementation='css'>
           <Drawer
             classes={{
               paper: classes.drawerPaper,
@@ -199,7 +199,7 @@ export default function Main() {
             <Grid container item xs ref={desktopContainer}></Grid>
           </Drawer>
         </Hidden>
-        <Hidden smUp>
+        <Hidden smUp implementation='css'>
           <SwipeableDrawer
             variant='persistent'
             anchor='bottom'
@@ -207,8 +207,9 @@ export default function Main() {
             onOpen={handleWidgetsDrawerToggle}
             onClose={handleWidgetsDrawerToggle}
             PaperProps={{
-              className: `${classes.bottomSheet} ${!bottomSheetOpen ? classes.closed : ''
-                }`,
+              className: `${classes.bottomSheet} ${
+                !bottomSheetOpen ? classes.closed : ''
+              }`,
               elevation: 8,
             }}
           >
@@ -219,8 +220,9 @@ export default function Main() {
             size='small'
             color='inherit'
             aria-label={bottomSheetOpen ? 'Hide' : 'Show'}
-            className={`${classes.bottomSheetButton} ${!bottomSheetOpen ? classes.buttonShow : ''
-              }`}
+            className={`${classes.bottomSheetButton} ${
+              !bottomSheetOpen ? classes.buttonShow : ''
+            }`}
             onClick={handleWidgetsDrawerToggle}
           >
             <ExpandLessIcon className={classes.bottomSheetIcon} />
