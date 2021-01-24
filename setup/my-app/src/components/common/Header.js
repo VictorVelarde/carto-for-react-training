@@ -74,11 +74,18 @@ const NavigationMenu = (props) => {
           variant={vertical ? 'fullWidth' : 'standard'}
         >
           <Tab label='Home' value='home' component={NavLink} to='/' />
-          <Tab
+          {/* <Tab
             label='Dynamic view'
             value='dynamic'
             component={NavLink}
             to='/dynamic'
+            className={classes.navLink}
+          /> */}
+          <Tab
+            label='New view'
+            value='newView'
+            component={NavLink}
+            to='/newView'
             className={classes.navLink}
           />
           {/* Auto import links */}
