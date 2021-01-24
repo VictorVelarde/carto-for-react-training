@@ -1,12 +1,15 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addLayer, removeLayer, addSource, removeSource } from '@carto/react/redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import { Checkbox, FormControlLabel, Grid } from '@material-ui/core';
+import { setLoadDetailedLayers } from 'config/appSlice';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    padding: theme.spacing(3),
+  },
 }));
 
 export default function NewView() {
@@ -68,9 +71,25 @@ export default function NewView() {
     };
   }, [dispatch]);
 
+  const loadDetailedLayers = useSelector((state) => state.app.loadDetailedLayers);
+  const handleLoadDetailedLayers = (event) => {
+    dispatch(setLoadDetailedLayers(event.target.checked));
+  };
+
   return (
-    <Grid container direction='row' className={classes.root}>
+    <Grid container direction='column' className={classes.root}>
       <Grid item>Hello World</Grid>
+
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={loadDetailedLayers}
+            onChange={handleLoadDetailedLayers}
+            name='detailedLayers'
+          />
+        }
+        label='Load detailed layers'
+      />
     </Grid>
   );
 }

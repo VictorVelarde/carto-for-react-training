@@ -6,8 +6,9 @@ import htmlForFeature from 'utils/htmlForFeature';
 export default function MyBqLayer() {
   const { myBqLayer } = useSelector((state) => state.carto.layers);
   const source = useSelector((state) => selectSourceById(state, myBqLayer?.source));
+  const loadDetailedLayers = useSelector((state) => state.app.loadDetailedLayers);
 
-  if (myBqLayer && source) {
+  if (myBqLayer && source && loadDetailedLayers) {
     return new CartoBQTilerLayer({
       id: 'myBqLayer',
       data: source.data,

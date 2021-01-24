@@ -6,7 +6,8 @@ const slice = createSlice({
     error: null,
     isolineResult: null,
     bottomSheetOpen: false,
-    forceOAuthLogin: false // enable for an initial Login screen
+    loadDetailedLayers: false,
+    forceOAuthLogin: false, // enable for an initial Login screen
   },
   reducers: {
     setIsolineResult: (state, action) => {
@@ -18,6 +19,9 @@ const slice = createSlice({
     setBottomSheetOpen: (state, action) => {
       state.bottomSheetOpen = action.payload;
     },
+    setLoadDetailedLayers: (state, action) => {
+      state.loadDetailedLayers = action.payload;
+    },
   },
 });
 
@@ -27,5 +31,9 @@ export const setIsolineResult = (payload) => ({ type: 'app/setIsolineResult', pa
 export const setError = (payload) => ({ type: 'app/setError', payload });
 export const setBottomSheetOpen = (payload) => ({
   type: 'app/setBottomSheetOpen',
+  payload,
+});
+export const setLoadDetailedLayers = (payload) => ({
+  type: 'app/setLoadDetailedLayers',
   payload,
 });
