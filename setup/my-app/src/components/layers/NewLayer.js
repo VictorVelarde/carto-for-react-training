@@ -11,6 +11,7 @@ export default function NewLayer() {
   if (newLayer && source) {
     return new CartoSQLLayer({
       id: 'newLayer',
+      visible: newLayer.visible,
       data: buildQueryFilters(source),
       credentials: source.credentials,
       getFillColor: colorCategories({

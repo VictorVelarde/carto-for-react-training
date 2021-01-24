@@ -1,9 +1,15 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addLayer, removeLayer, addSource, removeSource } from '@carto/react/redux';
+import {
+  addLayer,
+  updateLayer,
+  removeLayer,
+  addSource,
+  removeSource,
+} from '@carto/react/redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Checkbox, FormControlLabel, Grid } from '@material-ui/core';
+import { Checkbox, Divider, FormControlLabel, Grid } from '@material-ui/core';
 import { setLoadDetailedLayers } from 'config/appSlice';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +39,9 @@ export default function NewView() {
       addLayer({
         id: LAYER_ID,
         source: SOURCE_ID,
+        layerAttributes: {
+          visible: true,
+        },
       })
     );
 
@@ -76,9 +85,20 @@ export default function NewView() {
     dispatch(setLoadDetailedLayers(event.target.checked));
   };
 
+  const { newLayer } = useSelector((state) => state.carto.layers);
+  const handleVisibility = (event) => {
+    const visibility = event.target.checked;
+    dispatch(
+      updateLayer({
+        id: 'newLayer',
+        layerAttributes: { visible: visibility },
+      })
+    );
+  };
+
   return (
     <Grid container direction='column' className={classes.root}>
-      <Grid item>Hello World</Grid>
+      <Grid item>Layer-related actions</Grid>
 
       <FormControlLabel
         control={
@@ -90,6 +110,21 @@ export default function NewView() {
         }
         label='Load detailed layers'
       />
+
+      <Divider />
+
+      {newLayer && (
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={newLayer.visible}
+              onChange={handleVisibility}
+              name='layerVisibility'
+            />
+          }
+          label='Toggle countries visibility'
+        />
+      )}
     </Grid>
   );
 }
