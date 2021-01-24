@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { CartoSQLLayer } from '@deck.gl/carto';
+import { CartoSQLLayer, colorCategories } from '@deck.gl/carto';
 import { buildQueryFilters } from '@carto/react/api';
 import { selectSourceById } from '@carto/react/redux';
 import htmlForFeature from 'utils/htmlForFeature';
@@ -13,7 +13,11 @@ export default function NewLayer() {
       id: 'newLayer',
       data: buildQueryFilters(source),
       credentials: source.credentials,
-      getFillColor: [241, 109, 122],
+      getFillColor: colorCategories({
+        attr: 'continent',
+        domain: ['North America', 'Europe'],
+        colors: 'Bold',
+      }),
       pointRadiusMinPixels: 2,
       pickable: true,
       onHover: (info) => {

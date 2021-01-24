@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { CartoBQTilerLayer } from '@deck.gl/carto';
+import { CartoBQTilerLayer, colorContinuous } from '@deck.gl/carto';
 import { selectSourceById } from '@carto/react/redux';
 import htmlForFeature from 'utils/htmlForFeature';
 
@@ -12,8 +12,13 @@ export default function MyBqLayer() {
       id: 'myBqLayer',
       data: source.data,
       credentials: source.credentials,
-      getFillColor: [0, 255, 0],
-      pointRadiusMinPixels: 1,
+      getFillColor: colorContinuous({
+        attr: 'avg_fare_amount',
+        domain: [5, 30],
+        colors: 'Sunset',
+      }),
+      getLineWidth: 0,
+      pointRadiusMinPixels: 2,
       pickable: true,
       onHover: (info) => {
         if (info && info.object) {
