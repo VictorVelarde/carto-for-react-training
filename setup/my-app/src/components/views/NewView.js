@@ -13,10 +13,9 @@ export default function NewView() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const SOURCE_ID = `newLayerSource`;
-  const LAYER_ID = `newLayer`;
-
   useEffect(() => {
+    const SOURCE_ID = `newLayerSource`;
+    const LAYER_ID = `newLayer`;
     // Add the source
     dispatch(
       addSource({
@@ -39,7 +38,35 @@ export default function NewView() {
       dispatch(removeLayer(LAYER_ID));
       dispatch(removeSource(SOURCE_ID));
     };
-  }, [dispatch, SOURCE_ID, LAYER_ID]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    const SOURCE_ID = `myBqLayerSource`;
+    const LAYER_ID = `myBqLayer`;
+
+    // Add the source
+    dispatch(
+      addSource({
+        id: SOURCE_ID,
+        data: `cartobq.maps.nyc_taxi_points_demo_id`,
+        type: 'bq',
+      })
+    );
+
+    // Add the layer
+    dispatch(
+      addLayer({
+        id: LAYER_ID,
+        source: SOURCE_ID,
+      })
+    );
+
+    // Cleanup
+    return function cleanup() {
+      dispatch(removeLayer(LAYER_ID));
+      dispatch(removeSource(SOURCE_ID));
+    };
+  }, [dispatch]);
 
   return (
     <Grid container direction='row' className={classes.root}>
