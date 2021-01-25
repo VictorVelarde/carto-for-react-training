@@ -1254,10 +1254,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@carto/react@^1.0.0-beta10":
-  version "1.0.0-beta10"
-  resolved "https://registry.yarnpkg.com/@carto/react/-/react-1.0.0-beta10.tgz#bd81590d23a6236482cfb214d0cad75133905480"
-  integrity sha512-2iW2ybOL9vb7+B2oH5hmP0JeXZhj0QpcTR7gZrNG5FAd2yBeAU20YraQYA4J0bYomzXaad/BrPmW1fGeOUT1hg==
+"@carto/react@^1.0.0-beta12":
+  version "1.0.0-beta12"
+  resolved "https://registry.yarnpkg.com/@carto/react/-/react-1.0.0-beta12.tgz#8080bdf595c266d13aadcd8e1ba70a5c66956a1c"
+  integrity sha512-gmH0kCMCPH0/V3QXm6mJMAo3iskRBzS3UW3wntrjpls1yJJKjoA2+x7NAodlUpkXPbniMS8tYff7RspI4DTu4A==
   dependencies:
     "@babel/runtime" "^7.12.5"
 
