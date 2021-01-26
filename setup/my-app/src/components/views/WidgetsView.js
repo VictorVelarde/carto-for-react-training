@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import { addLayer, removeLayer, addSource, removeSource } from '@carto/react/redux';
 
 import { AggregationTypes, FormulaWidget, CategoryWidget, HistogramWidget } from '@carto/react/widgets';
-
+import { WrapperWidgetUI, CategoryWidgetUI } from '@carto/react/ui';
 import { makeStyles } from '@material-ui/core/styles';
-import { Divider, Grid } from '@material-ui/core';
+import { Divider, Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +47,13 @@ export default function WidgetsView() {
     };
   }, [dispatch, SOURCE_ID, LAYER_ID]);
 
+
+  const customData = [
+    { "category": "categoryA", "value": 100 },
+    { "category": "categoryB", "value": 100 },
+    { "category": "categoryC", "value": 100 }
+  ]
+
   return (
     <Grid container direction='column' className={classes.root}>
 
@@ -86,8 +93,20 @@ export default function WidgetsView() {
         operation={AggregationTypes.COUNT}
         column='pct_dem_r'
         ticks={[10, 20, 30, 40, 50, 60, 70, 80]}
-        viewportFilter        
+        viewportFilter
       ></HistogramWidget>
+
+      <WrapperWidgetUI title="Custom widget">
+        <Typography>
+          This is a custom 'widget', with my own contents & logic, but using the same internal UI pieces
+        </Typography>
+
+        <Divider />
+
+        {/* See https://storybook-react.carto.com/?path=/docs/widgets-categorywidgetui--default */}
+        <CategoryWidgetUI data={customData}>
+        </CategoryWidgetUI>
+      </WrapperWidgetUI>
 
     </Grid>
   );
