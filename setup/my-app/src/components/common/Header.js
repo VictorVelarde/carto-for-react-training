@@ -88,6 +88,13 @@ const NavigationMenu = (props) => {
             to='/dynamic'
             className={classes.navLink}
           />
+            <Tab
+              label='Widgets view'
+              value='widgets'
+              component={NavLink}
+              to='/widgets'
+              className={classes.navLink}
+            />
           {/* Auto import links */}
         </Tabs>
       </Grid>

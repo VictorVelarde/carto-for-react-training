@@ -7,6 +7,7 @@ import Home from 'components/views/Home';
 
 import DynamicView from 'components/views/DynamicView.js';
 import NewView from 'components/views/NewView.js';
+import WidgetsView from 'components/views/WidgetsView.js';
 // Auto import
 const routes = [
   {
@@ -17,6 +18,8 @@ const routes = [
       { path: '/dynamic', element: <DynamicView /> },
 
       { path: '/newView', element: <NewView /> },
+
+      { path: '/widgets', element: <WidgetsView/> },
 
       // Auto import routes
       { path: '/home', element: <Home /> },
